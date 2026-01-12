@@ -1,0 +1,400 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f1faf7;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    direction: rtl;
+}
+
+#flipbook-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align to bottom */
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 3vh; /* Space from bottom */
+}
+
+#flipbook {
+    margin: 0 auto;
+    position: relative;
+    top: 47vh; /* Move the catalog down */
+    cursor: pointer; /* Show it's clickable */
+}
+
+/* Page styles */
+.page {
+    background: #f1faf7;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: none; /* Remove transitions for natural flip */
+}
+
+.page:hover {
+    cursor: grab;
+}
+
+.page:active {
+    cursor: grabbing;
+}
+
+.page-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #f1faf7;
+}
+
+.page-content img {
+    width: 100%;
+    height: 100%;
+  object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.page-placeholder {
+    font-size: 6rem;
+    color: #ddd;
+    font-weight: bold;
+    user-select: none;
+}
+
+/* First page (cover) special styling with page curl effect */
+.page:first-child {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Page curl corner effect - LEFT side for Hebrew books */
+.page:first-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 80px 80px 0;
+    border-color: transparent #f0f0f0 transparent transparent;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    z-index: 10;
+    cursor: pointer;
+}
+
+/* Clickable area for page curl - larger touch target */
+.page:first-child::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 120px;
+    height: 120px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Animated pulsing hint on first page - REMOVED */
+
+/* Hover effect on first page */
+.page:first-child:hover::after {
+    border-width: 0 100px 100px 0;
+    border-color: transparent #e8e8e8 transparent transparent;
+}
+
+/* Keep page curl visible always - removed flipped hide */
+
+/* Removed click hint text - no longer needed */
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Navigation controls - simple arrows */
+.controls {
+    pointer-events: none;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-btn {
+    pointer-events: all;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.4);
+    color: #2d5016;
+    border: none;
+    width: 50px;
+    height: 100px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: none; /* Hide by default on desktop */
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    opacity: 0.7;
+    z-index: 1001;
+    touch-action: auto;
+}
+
+.nav-btn .arrow-icon {
+    display: block;
+    line-height: 1;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.nav-btn-right {
+    right: 0;
+    border-radius: 0 10px 10px 0;
+}
+
+.nav-btn-left {
+    left: 0;
+    border-radius: 10px 0 0 10px;
+}
+
+.nav-btn:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.nav-btn:active {
+    opacity: 0.9;
+}
+
+.nav-btn:disabled,
+.nav-btn.disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.nav-btn:disabled:hover,
+.nav-btn.disabled:hover {
+    opacity: 0.2;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Page counter */
+.page-counter {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    z-index: 999;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.page-counter.show {
+    opacity: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    header {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+
+    header h2 {
+        font-size: 1.2rem;
+    }
+
+    .catalog-wrapper {
+        padding: 0;
+        height: calc(100vh - 180px);
+    }
+
+    #flipbook-container {
+        height: 100%;
+    }
+
+    #flipbook {
+        top: 28vh; /* Move catalog up more on mobile */
+    }
+
+    .nav-btn {
+        display: flex; /* Show navigation buttons on mobile */
+        width: 35px;
+        height: 60px;
+        font-size: 1.5rem;
+        opacity: 0.5;
+    }
+
+    .nav-btn .arrow-icon {
+        font-size: 1.5rem;
+    }
+
+    .nav-btn-right {
+        right: 0;
+        z-index: 1001;
+        touch-action: auto;
+    }
+
+    .nav-btn-left {
+        left: 0;
+        z-index: 1001;
+        touch-action: auto;
+    }
+
+    .nav-btn:active {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    .nav-btn:focus {
+        outline: none;
+    }
+
+    /* Page curl on mobile - LEFT side for Hebrew */
+    .page:first-child::after {
+        border-width: 0 50px 50px 0;
+        border-color: transparent #e0e0e0 transparent transparent;
+        pointer-events: auto;
+    }
+
+    .page:first-child::before {
+        width: 100px;
+        height: 100px;
+    }
+
+    .page:first-child:hover::after,
+    .page:first-child:active::after {
+        border-width: 0 60px 60px 0;
+        border-color: transparent #d8d8d8 transparent transparent;
+    }
+
+
+    .cover-page .page-content::after {
+        font-size: 0.75rem;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+/* StPageFlip specific styles */
+.stf__wrapper {
+    direction: ltr !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.stf__block {
+    direction: rtl;
+}
+
+/* Center the book when showing single pages (cover/last page) */
+.stf__block.--simple {
+    margin: 0 auto !important;
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+    /* Prevent entire screen from moving */
+    body {
+        overscroll-behavior: none;
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .container {
+        overflow: hidden;
+        height: 100vh;
+    }
+
+    .catalog-wrapper {
+        overflow: hidden;
+        touch-action: none;
+    }
+
+    #flipbook-container {
+        overflow: hidden;
+        touch-action: none;
+        position: relative;
+    }
+
+    .page {
+        touch-action: none; /* Prevent scrolling when touching pages */
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    .page:hover {
+        cursor: grab;
+    }
+
+    .page:active {
+        cursor: grabbing;
+    }
+
+    /* Ensure flipbook wrapper doesn't cause scrolling */
+    .stf__wrapper {
+        overflow: visible !important;
+        touch-action: none !important;
+    }
+
+    .stf__parent {
+        overflow: visible !important;
+        touch-action: none !important;
+    }
+}

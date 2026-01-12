@@ -1,0 +1,12 @@
+{
+  "name": "womens-day-catalog",
+  "version": "1.0.0",
+  "description": "קטלוג דיגיטלי יום האישה - אלטשולר שחם",
+  "scripts": {
+    "dev": "python app.py",
+    "start": "python app.py",
+    "install-deps": "pip install -r requirements.txt"
+  },
+  "author": "Altshuler Shaham",
+  "license": "ISC"
+}
