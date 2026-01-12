@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>קטלוג יום האישה - אלטשולר שחם</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- StPageFlip library from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+</head>
+<body>
+    <!-- Flipbook container - full screen -->
+    <div id="flipbook-container">
+        <div id="flipbook"></div>
+    </div>
+
+    <!-- Navigation controls - arrow buttons -->
+    <div class="controls">
+        <!-- Right button = Next (forward) -->
+        <button id="next-btn" class="nav-btn nav-btn-right">
+            <span class="arrow-icon">►</span>
+        </button>
+        <!-- Left button = Previous (backward) -->
+        <button id="prev-btn" class="nav-btn nav-btn-left">
+            <span class="arrow-icon">◄</span>
+        </button>
+    </div>
+
+    <!-- Page counter -->
+    <div class="page-counter">
+        <span id="current-page">1</span> / <span id="total-pages">5</span>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

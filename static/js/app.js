@@ -65,23 +65,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Fetch pages data from API
+    // Load pages data directly from static files
     async function loadPages() {
-        try {
-            const response = await fetch('/api/pages');
-            const data = await response.json();
-            pagesData = data.pages;
-            totalPages = data.total;
-            return pagesData;
-        } catch (error) {
-            console.error('Error loading pages:', error);
-            // Fallback to placeholder pages (6 pages including back page)
-            return Array.from({ length: 6 }, (_, i) => ({
-                page: i + 1,
-                image: null,
-                exists: false
-            }));
-        }
+        // Define the pages directly - 5 content pages + 1 back page
+        const pages = [
+            { page: 1, image: '/static/pages/001.webp', exists: true },
+            { page: 2, image: '/static/pages/002.webp', exists: true },
+            { page: 3, image: '/static/pages/003.webp', exists: true },
+            { page: 4, image: '/static/pages/004.webp', exists: true },
+            { page: 5, image: '/static/pages/005.webp', exists: true },
+            { page: 6, image: null, exists: false } // Back page (empty)
+        ];
+
+        pagesData = pages;
+        totalPages = pages.length;
+        return pagesData;
     }
 
     // Create page element
