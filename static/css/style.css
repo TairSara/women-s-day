@@ -260,11 +260,12 @@ body {
     }
 
     #flipbook-container {
-        height: 100%;
+        height: 100vh;
+        align-items: center; /* Center vertically on mobile */
     }
 
     #flipbook {
-        top: 10vh; /* Move catalog higher on mobile */
+        top: 0; /* Center catalog perfectly on mobile */
     }
 
     .nav-btn {
