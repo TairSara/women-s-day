@@ -147,9 +147,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         let pageHeight, pageWidth;
 
         if (mobile) {
-            // Mobile: single page, optimized size for centering
-            pageHeight = viewportHeight * 0.85;
+            // Mobile: single page, fit within viewport
+            pageHeight = viewportHeight * 0.7;
             pageWidth = pageHeight / 1.414; // A4 ratio
+
+            // Make sure width also fits
+            if (pageWidth > viewportWidth * 0.9) {
+                pageWidth = viewportWidth * 0.9;
+                pageHeight = pageWidth * 1.414;
+            }
         } else {
             // Desktop: spread (two pages), fit to screen
             pageHeight = viewportHeight * 0.95;

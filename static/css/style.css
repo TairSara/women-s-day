@@ -265,7 +265,7 @@ body {
     }
 
     #flipbook {
-        top: 5vh; /* Slight offset down for perfect mobile centering */
+        top: 0; /* Perfect center on mobile */
     }
 
     .nav-btn {
