@@ -26,9 +26,6 @@ body {
 }
 
 #flipbook {
-    margin: 0 auto;
-    position: relative;
-    top: 0; /* Center the catalog vertically */
     cursor: pointer; /* Show it's clickable */
 }
 
@@ -262,10 +259,6 @@ body {
     #flipbook-container {
         height: 100vh;
         align-items: center; /* Center vertically on mobile */
-    }
-
-    #flipbook {
-        top: 0; /* Perfect center on mobile */
     }
 
     .nav-btn {
