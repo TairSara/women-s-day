@@ -265,7 +265,7 @@ body {
     }
 
     #flipbook {
-        top: 0; /* Center catalog perfectly on mobile */
+        top: 5vh; /* Slight offset down for perfect mobile centering */
     }
 
     .nav-btn {
